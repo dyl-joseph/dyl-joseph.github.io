@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan's Website</title>
+    <meta name="description" content="Dylan Joseph">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-line"></div> 
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Dylan's Page</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://neural-lens.blogspot.com/" class="nav-link" target="_blank">Blog Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="pdf/Dylan_Resume.pdf" class="nav-link" target="_blank">Resume</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="author-profile">
+                    <div class="author-avatar">
+                        <div class="profile-container">
+                            <img src="images/profile.jpeg" alt="Dylan Joseph" class="profile-image">
+                        </div>
+                    </div>                    
+                    
+                    <h3 class="author-name">Dylan Joseph</h3>
+                    <p class="author-school"><i class="fas fa-building-columns"></i> TAMS '27</p>
+                </div>
+                <div class="author-links">
+                    <ul class="social-links">
+                        <li><a href="https://dyl-joseph.github.io"><i class="fas fa-link"></i> Website</a></li>
+                        <li><a href="mailto:dylan.simeon6@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
+                        <li><a href="https://github.com/dyl-joseph"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="https://neural-lens.blogspot.com/"><i class="fas fa-blog"></i> Blog</a></li>
+                    </ul>
+                </div>
+                
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Home Section -->
+                <section id="home" class="section">
+                    <h1>Bio</h1>
+                    <div class="bio-content">
+                        <p>
+                            I am a Junior at the Texas Academy of Mathematics and Science (TAMS), studying Computer Science. 
+                            I'm interested in Computer Vision, and Multimodal Learning (Video-Audio tasks).
+                            <br></br>
+                            In my free time, I like to play the Cello!  
+                        </p>
+                        <hr></hr>    
+                    </div>
+                    
+                    <h1>Selected Projects</h1>
+                    
+                    <ul class="compact-list">
+                        <li class="project-item-border">
+                            <div class="project-item">
+                                <h3> 
+                                    <!-- <i class="fa-solid fa-1"></i> -->
+                                    UCF-101 Transformer Model
+                                </h3>
+                                <p>Transformer-Based Encoder for Action Recognition Classification on 101 different actions. Achieves an accuracy of 75-77%. Click to get code.</p>
+                            </div>
+                        </li>
+                        <li class="project-item-border">
+                            <a href="https://github.com/dyl-joseph/KMNIST-DC-GAN" target="_blank" class="project-item-link">
+                                <div class="project-item">
+                                    <h3>KMNIST DC-GAN</h3>
+                                    <p>Custom Deep Convolutional Generative Adversarial Network for Kuzushiji Letter/Writing Form Generation. Click to get code.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <div class="custom"></div>
+                        <li class="project-item-border">
+                            <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/03-CIFAR%2010%20(Convolutional%20Neural%20Network)" target="_blank" class="project-item-link">
+                                <div class="project-item">
+                                    <h3>3 Different CIFAR-10 Models</h3>
+                                    <p>Implemented a Vanilla-CNN, custom Res-Net (3-Layers), and transfer learning Res-Net18 on the CIFAR-10 Dataset. Click to get code.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="project-item-border">
+                            <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/02-MNIST%20(Fully%20Connected%20Networks)" target="_blank" class="project-item-link">
+                                <div class="project-item">
+                                    <h3>Linear Neural Network from scratch for MNIST</h3>
+                                <p>Hand calculated gradients and custom written model using NumPy for a linear neural network on the MNIST Dataset. Contains one hidden layer. Click to get code.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="project-item-border">
+                            <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/01-House%20Rent%20(Linear%20Regression)" target="_blank" class="project-item-link">
+                                <div class="project-item">
+                                    <h3>Linear Regression Model for House Prices</h3>
+                                    <p>Hand calculated gradients for a linear regression model. Click to get code.</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+                </section>
+
+                <!-- Portfolio Section -->
+                <!-- <section id="portfolio" class="section">
+                    <h1>Portfolio</h1>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <img src="images/500x300.png" alt="Portfolio item 1">
+                            </div>
+                            <div class="portfolio-content">
+                                <h3>Portfolio item number 1</h3>
+                                <p>This is an item in your portfolio. It can have images or nice text.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="portfolio-item">
+                            <div class="portfolio-image">
+                                <img src="images/foo-bar-identity.jpg" alt="Portfolio item 2">
+                            </div>
+                            <div class="portfolio-content">
+                                <h3>Portfolio item number 2</h3>
+                                <p>Another portfolio item showcasing different work and projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Dylan Joseph. All rights reserved.</p>
+        </div>
+    </footer> -->
+
+    <script src="script.js"></script>
+</body>
+</html> 
