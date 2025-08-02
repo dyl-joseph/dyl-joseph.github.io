@@ -305,10 +305,11 @@ a:hover {
     height: 100%;
     border-radius: 50%;
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 2;
-
     display: block;
-
+    object-fit: cover;
 }
 
 .author-name {
