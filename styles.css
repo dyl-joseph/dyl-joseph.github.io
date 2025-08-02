@@ -254,6 +254,18 @@ a:hover {
     }
 }
 
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 .author-profile {
     text-align: center;
@@ -273,43 +285,23 @@ a:hover {
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
-
     box-shadow: 0 0 1rem 0.5rem rgba(147, 153, 178, 0.5);
-
-}
-
-.profile-container::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: conic-gradient(#fff, #9399b2, #fff);
-
-    border-radius: 50%;
-
+    background: conic-gradient(from var(--angle), #fff, #9399b2, #fff, #9399b2, #fff);
+    background-size: 200% 200%;
     animation: spin 4s linear infinite;
-
-    z-index: 0;
+    /* animation: spin 4s linear infinite, gradientShift 3s ease-in-out infinite; */
+    padding: 3px;
 }
 
-.profile-container::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    background-color: #fff;
-    border-radius: 50%;
-    z-index: 1;
-}
 
 .profile-image {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
     display: block;
     object-fit: cover;
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
 .author-name {
@@ -626,6 +618,10 @@ ul
     .content-area {
         order: 1;
     }
+
+    .profile-container {
+        --size: 140px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -674,6 +670,10 @@ ul
         grid-template-columns: 1fr;
     }
 
+    .profile-container {
+        --size: 130px;
+    }
+
     h1 {
         font-size: 2rem;
     }
@@ -704,9 +704,8 @@ ul
         padding: 1.5rem;
     }
 
-    .profile-image {
-        width: 120px;
-        height: 120px;
+    .profile-container {
+        --size: 120px;
     }
 }
 
@@ -760,7 +759,6 @@ button:focus {
         max-width: none;
     }
 }
-
 .compact-list li {
     margin-bottom: 5px; 
 }
