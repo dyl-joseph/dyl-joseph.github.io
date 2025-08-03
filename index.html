@@ -30,11 +30,6 @@
                     <a href="pdf/Dylan_Resume.pdf" class="nav-link" target="_blank">Resume</a>
                 </li>
             </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
         </div>
     </nav>
 
@@ -55,10 +50,30 @@
                 </div>
                 <div class="author-links">
                     <ul class="social-links">
-                        <li><a href="https://dyl-joseph.github.io"><i class="fas fa-link"></i> Website</a></li>
-                        <li><a href="mailto:dylan.simeon6@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
-                        <li><a href="https://github.com/dyl-joseph"><i class="fab fa-github"></i> GitHub</a></li>
-                        <li><a href="https://neural-lens.blogspot.com/"><i class="fas fa-blog"></i> Blog</a></li>
+                        <li>
+                            <a href="https://dyl-joseph.github.io">
+                                <i class="fas fa-link"></i> 
+                                Website
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:dylan.simeon6@gmail.com">
+                                <i class="fas fa-envelope"></i> 
+                                Email
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/dyl-joseph">
+                                <i class="fab fa-github"></i> 
+                                GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://neural-lens.blogspot.com/">
+                                <i class="fas fa-blog"></i> 
+                                Blog
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 
@@ -72,55 +87,101 @@
                     <div class="bio-content">
                         <p>
                             I am a Junior at the Texas Academy of Mathematics and Science (TAMS), studying Computer Science. 
-                            I'm interested in Computer Vision, and Multimodal Learning (Video-Audio tasks).
-                            <br></br>
+                            I'm interested in Computer Vision and Multimodal Learning (Video-Audio tasks).
+                            <br />
                             In my free time, I like to play the Cello!  
                         </p>
-                        <hr></hr>    
+                        <hr />    
                     </div>
                     
                     <h1>Selected Projects</h1>
-                    
+                    <p>Click a project to get the code!</p>
                     <ul class="compact-list">
                         <li class="project-item-border">
                             <div class="project-item">
                                 <h3> 
-                                    <!-- <i class="fa-solid fa-1"></i> -->
+                                    Work in Progress: Early Fusion for Sound Separation and Localization via Sound and Video
+                                </h3>
+                                <p>
+                                    Inspired by the <em>Sound of Pixels</em> paper, I slightly modify their architecture, because the audio generation does not take into account visual cues within a frame that could help with understanding where and how sound is produced at a region (<a href="https://arxiv.org/abs/1804.03160">Zhao et. al. 2018</a>). 
+                                    <br /> <br />
+                                    Using the early fusion method from <em>Co-Separating Sounds of Visual Objects</em>, I switched out the image backbone for a video backbone (3D ResNet) to encode video frames (<a href="https://vision.cs.utexas.edu/projects/coseparation/">Gao and Grauman 2019</a>).
+                                    <br /> <br />
+                                    Working On: Training the model
+                                </p>
+                            </div>
+                        </li>
+                        <li class="project-item-border">
+                            <div class="project-item">
+                                <h3> 
                                     UCF-101 Transformer Model
                                 </h3>
-                                <p>Transformer-Based Encoder for Action Recognition Classification on 101 different actions. Achieves an accuracy of 75-77%. Click to get code.</p>
+                                <p>
+                                    Transformer-Based Encoder for Action Recognition Classification on 101 different actions. 
+                                    Achieves an accuracy of 75-77% with 2 Attention-Layers (dimension of 512, 8 heads).
+                                </p>
                             </div>
                         </li>
                         <li class="project-item-border">
                             <a href="https://github.com/dyl-joseph/KMNIST-DC-GAN" target="_blank" class="project-item-link">
                                 <div class="project-item">
-                                    <h3>KMNIST DC-GAN</h3>
-                                    <p>Custom Deep Convolutional Generative Adversarial Network for Kuzushiji Letter/Writing Form Generation. Click to get code.</p>
+                                    <h3>
+                                        KMNIST DC-GAN
+                                    </h3>
+                                    <p>
+                                        Custom Deep Convolutional Generative Adversarial Network for Kuzushiji Letter/Writing Form Generation.
+                                    </p>
                                 </div>
                             </a>
                         </li>
-                        <div class="custom"></div>
+                        <li class="project-item-border">
+                            <div class="project-item">
+                                <h3> 
+                                    Fine-tuning Long-Short Context Network (LoCoNet) on AVDIAR Dataset
+                                </h3>
+                                <p>
+                                    Goal: Learn how to fine-tune a model. 
+                                    <br /> <br />
+                                    Using <a href="https://github.com/UTDTianGroup/AVDIAR2ASD">AVDIAR2ASD</a> github repo, I tested the LoCoNet paper on this dataset. 
+                                    Before fine-tuning, it achieves an accuracy of 85-86%. 
+                                    After fine-tuning for 15 epochs and unfreezing the last 3 layers from trial-and-error (in order to prevent catastrophic forgetting), I achieved an accuracy of 88%.
+                                </p>
+                            </div>
+                        </li>
+                        
                         <li class="project-item-border">
                             <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/03-CIFAR%2010%20(Convolutional%20Neural%20Network)" target="_blank" class="project-item-link">
                                 <div class="project-item">
-                                    <h3>3 Different CIFAR-10 Models</h3>
-                                    <p>Implemented a Vanilla-CNN, custom Res-Net (3-Layers), and transfer learning Res-Net18 on the CIFAR-10 Dataset. Click to get code.</p>
+                                    <h3>
+                                        3 Different CIFAR-10 Models
+                                    </h3>
+                                    <p>
+                                        Implemented a Vanilla-CNN, custom Res-Net (3-Layers), and transfer learning Res-Net18 on the CIFAR-10 Dataset. 
+                                    </p>
                                 </div>
                             </a>
                         </li>
                         <li class="project-item-border">
                             <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/02-MNIST%20(Fully%20Connected%20Networks)" target="_blank" class="project-item-link">
                                 <div class="project-item">
-                                    <h3>Linear Neural Network from scratch for MNIST</h3>
-                                <p>Hand calculated gradients and custom written model using NumPy for a linear neural network on the MNIST Dataset. Contains one hidden layer. Click to get code.</p>
+                                    <h3>
+                                        Linear Neural Network from scratch for MNIST
+                                    </h3>
+                                    <p>
+                                        Hand calculated gradients and custom written model using NumPy for a linear neural network on the MNIST Dataset. 
+                                    </p>
                                 </div>
                             </a>
                         </li>
                         <li class="project-item-border">
                             <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/01-House%20Rent%20(Linear%20Regression)" target="_blank" class="project-item-link">
                                 <div class="project-item">
-                                    <h3>Linear Regression Model for House Prices</h3>
-                                    <p>Hand calculated gradients for a linear regression model. Click to get code.</p>
+                                    <h3>
+                                        Linear Regression Model for House Prices
+                                    </h3>
+                                    <p>
+                                        Hand calculated gradients for a linear regression model.
+                                    </p>
                                 </div>
                             </a>
                         </li>
