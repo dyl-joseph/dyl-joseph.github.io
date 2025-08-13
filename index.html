@@ -97,21 +97,21 @@
                     <h1>Selected Projects</h1>
                     <p>Click a project to get the code!</p>
                     <ul class="compact-list">
-                        <li class="project-item-border">
+                        <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/Early-Fusion-for-Sound-Source-Separation-and-Localization'">
                             <div class="project-item">
                                 <h3> 
-                                    Work in Progress: Early Fusion for Sound Separation and Localization via Sound and Video
+                                    Early Fusion for Sound Separation and Localization via Sound and Video
                                 </h3>
                                 <p>
-                                    Inspired by the <em>Sound of Pixels</em> paper, I slightly modify their architecture, because the audio generation does not take into account visual cues within a frame that could help with understanding where and how sound is produced at a region (<a href="https://arxiv.org/abs/1804.03160">Zhao et. al. 2018</a>). 
+                                    Inspired by the Sound of Pixels paper, I slightly modify their architecture, because the audio generation does not take into account visual cues within a frame that could help with understanding where and how sound is produced at a region (<a href="https://arxiv.org/abs/1804.03160">Zhao et. al. 2018</a>).
                                     <br /> <br />
                                     Using the early fusion method from <em>Co-Separating Sounds of Visual Objects</em>, I switched out the image backbone for a video backbone (3D ResNet) to encode video frames (<a href="https://vision.cs.utexas.edu/projects/coseparation/">Gao and Grauman 2019</a>).
                                     <br /> <br />
-                                    Working On: Training the model
+                                    <b>Unable to continue training due to insufficient compute.</b> I was able to use a RTX 3060 (12 GB) to train for one epoch; however, I had to use a batch size of 2 (VRAM issue). Also, cost to train model :( 
                                 </p>
                             </div>
                         </li>
-                        <li class="project-item-border">
+                        <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/Transformers-for-UCF-101'">
                             <div class="project-item">
                                 <h3> 
                                     UCF-101 Transformer Model
@@ -122,25 +122,23 @@
                                 </p>
                             </div>
                         </li>
-                        <li class="project-item-border">
-                            <a href="https://github.com/dyl-joseph/KMNIST-DC-GAN" target="_blank" class="project-item-link">
-                                <div class="project-item">
-                                    <h3>
-                                        KMNIST DC-GAN
-                                    </h3>
-                                    <p>
-                                        Custom Deep Convolutional Generative Adversarial Network for Kuzushiji Letter/Writing Form Generation.
-                                    </p>
-                                </div>
-                            </a>
+                        <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/KMNIST-DC-GAN'">
+                            <div class="project-item">
+                                <h3>
+                                    KMNIST DC-GAN
+                                </h3>
+                                <p>
+                                    Custom Deep Convolutional Generative Adversarial Network for Kuzushiji Letter/Writing Form Generation.
+                                </p>
+                            </div>
                         </li>
-                        <li class="project-item-border">
+                        <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/AVDIAR-LoCoNet-ASD'">
                             <div class="project-item">
                                 <h3> 
                                     Fine-tuning Long-Short Context Network (LoCoNet) on AVDIAR Dataset
                                 </h3>
                                 <p>
-                                    Goal: Learn how to fine-tune a model. 
+                                    Goal: Learn how to fine-tune a model and work with a large codebase. 
                                     <br /> <br />
                                     Using <a href="https://github.com/UTDTianGroup/AVDIAR2ASD">AVDIAR2ASD</a> github repo, I tested the LoCoNet paper on this dataset. 
                                     Before fine-tuning, it achieves an accuracy of 85-86%. 
@@ -149,19 +147,17 @@
                             </div>
                         </li>
                         
-                        <li class="project-item-border">
-                            <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/03-CIFAR%2010%20(Convolutional%20Neural%20Network)" target="_blank" class="project-item-link">
-                                <div class="project-item">
-                                    <h3>
-                                        3 Different CIFAR-10 Models
-                                    </h3>
-                                    <p>
-                                        Implemented a Vanilla-CNN, custom Res-Net (3-Layers), and transfer learning Res-Net18 on the CIFAR-10 Dataset. 
-                                    </p>
-                                </div>
-                            </a>
+                        <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/03-CIFAR%2010%20(Convolutional%20Neural%20Network)'">
+                            <div class="project-item">
+                                <h3>
+                                    3 Different CIFAR-10 Models
+                                </h3>
+                                <p>
+                                    Implemented a Vanilla-CNN, custom Res-Net (3-Layers), and transfer learning Res-Net18 on the CIFAR-10 Dataset. 
+                                </p>
+                            </div>
                         </li>
-                        <li class="project-item-border">
+                        <!-- <li class="project-item-border">
                             <a href="https://github.com/dyl-joseph/UTD-CVMC-Lab/tree/main/02-MNIST%20(Fully%20Connected%20Networks)" target="_blank" class="project-item-link">
                                 <div class="project-item">
                                     <h3>
@@ -184,7 +180,7 @@
                                     </p>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 <!-- <hr />
                 <h1>Portfolio</h1>
