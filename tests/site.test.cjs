@@ -50,14 +50,22 @@ test('sky matches the approved stable positions and five staggered durations', (
     const stars = first.field.children[0].children;
     assert.equal(stars.length, 900);
     assert.deepEqual(stars.map(star => star.attributes), load().field.children[0].children.map(star => star.attributes));
-    assert.deepEqual([...new Set(stars.map(star => star.style.animationDuration))], ['3s', '3.5s', '4s', '4.5s', '5s']);
+    assert.deepEqual([...new Set(stars.map(star => star.style.animationDuration))], ['2s', '2.5s', '3s', '3.5s', '4s']);
     for (const star of stars) {
-        assert.equal(star.attributes.fill, '#fff');
         assert.ok(Number(star.attributes.cx) >= 0 && Number(star.attributes.cx) < 1440);
         assert.ok(Number(star.attributes.cy) >= 0 && Number(star.attributes.cy) < 1000);
         assert.ok(parseFloat(star.style.animationDelay) <= 0);
         assert.ok(Math.abs(parseFloat(star.style.animationDelay)) < parseFloat(star.style.animationDuration));
     }
+});
+test('sky mixes blue, red and orange accents with mostly white stars', () => {
+    const stars = load().field.children[0].children;
+    const counts = {};
+    for (const star of stars) {
+        const color = star.attributes.fill;
+        counts[color] = (counts[color] ?? 0) + 1;
+    }
+    assert.deepEqual(counts, { '#fff': 630, '#89b4fa': 90, '#ff8a80': 90, '#fab387': 90 });
 });
 test('every section starts with the same 900 stars', () => {
     const home = load('#home').field.children[0].children;
@@ -81,6 +89,8 @@ test('black base, reduced motion and decorative-only field remain in source', ()
     const css = fs.readFileSync('styles.css', 'utf8');
     const html = fs.readFileSync('index.html', 'utf8');
     assert.match(css, /--bg-color: #000;/);
+    assert.match(css, /--sidebar-bg: transparent;/);
+    assert.match(css, /--card-bg: transparent;/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
     assert.match(html, /id="starfield"[^>]*aria-hidden="true"/);
     assert.match(html, /id="portfolio"/);

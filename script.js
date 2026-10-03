@@ -12,6 +12,8 @@ function random() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
 }
+// Keep most stars white; indexing preserves the seeded positions and twinkle timing.
+const starColors = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#89b4fa', '#ff8a80', '#fab387'];
 for (let index = 0; index < 900; index += 1) {
     const x = random() * 1440;
     const y = random() * 1000;
@@ -23,7 +25,7 @@ for (let index = 0; index < 900; index += 1) {
     star.setAttribute('cx', x);
     star.setAttribute('cy', y);
     star.setAttribute('r', radius);
-    star.setAttribute('fill', '#fff');
+    star.setAttribute('fill', starColors[index % starColors.length]);
     star.setAttribute('opacity', opacity);
     star.classList.add('star');
     star.style.setProperty('--star-opacity', opacity);
