@@ -773,8 +773,6 @@ body { isolation: isolate; }
 }
 .starfield { width: 100%; height: 100%; animation: star-drift 120s ease-in-out infinite alternate; }
 .star { animation: star-twinkle 3s ease-in-out infinite; }
-.starfield-layer.is-home .star:nth-child(n + 361) { display: none; }
-.starfield-layer:not(.is-home) { opacity: 0.8; }
 @keyframes star-drift {
     from { transform: translate3d(0, 0, 0); }
     to { transform: translate3d(3px, -2px, 0); }

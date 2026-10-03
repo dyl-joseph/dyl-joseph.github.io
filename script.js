@@ -12,7 +12,7 @@ function random() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
 }
-for (let index = 0; index < 720; index += 1) {
+for (let index = 0; index < 900; index += 1) {
     const x = random() * 1440;
     const y = random() * 1000;
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
@@ -32,12 +32,6 @@ for (let index = 0; index < 720; index += 1) {
     sky.appendChild(star);
 }
 starfield.appendChild(sky);
-function updateStarDensity() {
-    starfield.classList.toggle('is-home', !location.hash || location.hash === '#home');
-}
-updateStarDensity();
-window.addEventListener('hashchange', updateStarDensity);
-
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 function closeMenu() {

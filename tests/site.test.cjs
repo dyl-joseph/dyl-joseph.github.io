@@ -48,7 +48,7 @@ function load(hash = '') {
 test('sky matches the approved stable positions and five staggered durations', () => {
     const first = load();
     const stars = first.field.children[0].children;
-    assert.equal(stars.length, 720);
+    assert.equal(stars.length, 900);
     assert.deepEqual(stars.map(star => star.attributes), load().field.children[0].children.map(star => star.attributes));
     assert.deepEqual([...new Set(stars.map(star => star.style.animationDuration))], ['3s', '3.5s', '4s', '4.5s', '5s']);
     for (const star of stars) {
@@ -59,18 +59,12 @@ test('sky matches the approved stable positions and five staggered durations', (
         assert.ok(Math.abs(parseFloat(star.style.animationDelay)) < parseFloat(star.style.animationDuration));
     }
 });
-test('hash navigation changes density without rebuilding or moving stars', () => {
-    const site = load();
-    const sky = site.field.children[0];
-    assert.equal(site.field.classList.contains('is-home'), true);
-    site.context.location.hash = '#portfolio';
-    site.windowEvents.hashchange();
-    assert.equal(site.field.classList.contains('is-home'), false);
-    site.context.location.hash = '#home';
-    site.windowEvents.hashchange();
-    assert.equal(site.field.classList.contains('is-home'), true);
-    assert.equal(site.field.children[0], sky);
-    assert.equal(load('#portfolio').field.classList.contains('is-home'), false);
+test('every section starts with the same 900 stars', () => {
+    const home = load('#home').field.children[0].children;
+    const portfolio = load('#portfolio').field.children[0].children;
+    assert.equal(home.length, 900);
+    assert.equal(portfolio.length, 900);
+    assert.deepEqual(home.map(star => star.attributes), portfolio.map(star => star.attributes));
 });
 test('mobile menu supports repeated toggles, links, Escape and outside clicks', () => {
     const site = load();
@@ -87,7 +81,6 @@ test('black base, reduced motion and decorative-only field remain in source', ()
     const css = fs.readFileSync('styles.css', 'utf8');
     const html = fs.readFileSync('index.html', 'utf8');
     assert.match(css, /--bg-color: #000;/);
-    assert.match(css, /\.starfield-layer\.is-home \.star:nth-child\(n \+ 361\) \{ display: none; \}/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
     assert.match(html, /id="starfield"[^>]*aria-hidden="true"/);
     assert.match(html, /id="portfolio"/);
