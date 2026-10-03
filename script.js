@@ -29,7 +29,7 @@ for (const [name, tint] of Object.entries(starTints)) {
 sky.appendChild(definitions);
 // Index-based tints leave the seeded star positions unchanged.
 const starColors = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'blue', 'red', 'yellow'];
-for (let index = 0; index < 900; index += 1) {
+for (let index = 0; index < 950; index += 1) {
     const x = random() * 1440;
     const y = random() * 1000;
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
@@ -41,7 +41,8 @@ for (let index = 0; index < 900; index += 1) {
     star.setAttribute('cx', x);
     star.setAttribute('cy', y);
     star.setAttribute('r', radius * 2.5);
-    star.setAttribute('fill', `url(#star-${starColors[index % starColors.length]})`);
+    const color = index < 900 ? starColors[index % starColors.length] : 'red';
+    star.setAttribute('fill', `url(#star-${color})`);
     star.setAttribute('opacity', opacity);
     star.classList.add('star');
     star.style.setProperty('--star-opacity', opacity);

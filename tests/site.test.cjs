@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { createHash } = require('node:crypto');
 const vm = require('node:vm');
 const { test } = require('node:test');
 
@@ -48,7 +49,7 @@ function load(hash = '') {
 test('sky keeps stable positions and independently staggered 2–4 second flickers', () => {
     const first = load();
     const stars = first.field.children[0].children.filter(element => element.classList.contains('star'));
-    assert.equal(stars.length, 900);
+    assert.equal(stars.length, 950);
     assert.deepEqual(stars.map(star => star.attributes), load().field.children[0].children.filter(element => element.classList.contains('star')).map(star => star.attributes));
     assert.ok(new Set(stars.map(star => star.style.animationDuration)).size > 100);
     assert.ok(new Set(stars.map(star => star.style.animationDelay)).size > 100);
@@ -67,7 +68,7 @@ test('sky mixes pale blue, red and yellow accents with mostly white stars', () =
         const color = star.attributes.fill;
         counts[color] = (counts[color] ?? 0) + 1;
     }
-    assert.deepEqual(counts, { 'url(#star-white)': 630, 'url(#star-blue)': 90, 'url(#star-red)': 90, 'url(#star-yellow)': 90 });
+    assert.deepEqual(counts, { 'url(#star-white)': 630, 'url(#star-blue)': 90, 'url(#star-red)': 140, 'url(#star-yellow)': 90 });
 });
 test('stars have white cores, pale halos and varied brightness', () => {
     const sky = load().field.children[0];
@@ -118,11 +119,19 @@ test('each star is another 50% brighter than the previous 25% boost, capped at o
     }
     assert.ok(stars.some(star => star.attributes.opacity === '1'));
 });
-test('every section starts with the same 900 stars', () => {
+test('50 red stars are appended without changing the original 900', () => {
+    const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
+    const original = stars.slice(0, 900).map(star => ({ attributes: star.attributes, style: star.style }));
+    // Snapshot of all original star attributes and timing at fb53cd5.
+    assert.equal(createHash('sha256').update(JSON.stringify(original)).digest('hex'), '99a1811f726432ecc02e0652618a61d6a4bcacf468443c18169561bc045863ea');
+    assert.equal(stars.slice(900).length, 50);
+    assert.ok(stars.slice(900).every(star => star.attributes.fill === 'url(#star-red)'));
+});
+test('every section starts with the same 950 stars', () => {
     const home = load('#home').field.children[0].children.filter(element => element.classList.contains('star'));
     const portfolio = load('#portfolio').field.children[0].children.filter(element => element.classList.contains('star'));
-    assert.equal(home.length, 900);
-    assert.equal(portfolio.length, 900);
+    assert.equal(home.length, 950);
+    assert.equal(portfolio.length, 950);
     assert.deepEqual(home.map(star => star.attributes), portfolio.map(star => star.attributes));
 });
 test('mobile menu supports repeated toggles, links, Escape and outside clicks', () => {
