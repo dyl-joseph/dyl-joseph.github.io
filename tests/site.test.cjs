@@ -61,22 +61,28 @@ test('sky keeps stable positions and independently staggered 2–4 second flicke
         assert.ok(Math.abs(parseFloat(star.style.animationDelay)) < parseFloat(star.style.animationDuration));
     }
 });
-test('sky mixes pale blue, red and yellow accents with mostly white stars', () => {
+test('most stars have visible blue, red or yellow color', () => {
     const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
     const counts = {};
     for (const star of stars) {
         const color = star.attributes.fill;
         counts[color] = (counts[color] ?? 0) + 1;
     }
-    assert.deepEqual(counts, { 'url(#star-white)': 630, 'url(#star-blue)': 90, 'url(#star-red)': 140, 'url(#star-yellow)': 90 });
+    assert.deepEqual(counts, { 'url(#star-white)': 360, 'url(#star-blue)': 180, 'url(#star-red)': 230, 'url(#star-yellow)': 180 });
 });
-test('stars have white cores, pale halos and varied brightness', () => {
+test('colored stars retain visible color at their brightest cores and halos', () => {
     const sky = load().field.children[0];
     const gradients = sky.children[0].children;
     assert.deepEqual(gradients.map(gradient => gradient.attributes.id), ['star-white', 'star-blue', 'star-red', 'star-yellow']);
-    assert.deepEqual(gradients.map(gradient => gradient.children[2].attributes['stop-color']), ['#ffffff', '#bcd6ff', '#ffc2bb', '#ffe79a']);
+    assert.deepEqual(gradients.map(gradient => gradient.children[2].attributes['stop-color']), ['#ffffff', '#8fbdff', '#ff969e', '#ffe080']);
     for (const gradient of gradients) {
-        assert.equal(gradient.children[0].attributes['stop-color'], '#fff');
+        const tint = gradient.children[2].attributes['stop-color'];
+        assert.equal(gradient.children[0].attributes['stop-color'], tint);
+        assert.equal(gradient.children[1].attributes['stop-color'], tint);
+        if (gradient.attributes.id !== 'star-white') {
+            const channels = tint.slice(1).match(/../g).map(channel => parseInt(channel, 16));
+            assert.ok(Math.max(...channels) - Math.min(...channels) >= 100);
+        }
         assert.equal(gradient.children[0].attributes['stop-opacity'], '1');
         assert.equal(gradient.children.at(-1).attributes['stop-opacity'], '0');
     }
@@ -88,7 +94,7 @@ test('stars have white cores, pale halos and varied brightness', () => {
     assert.match(css, /0%, 100% \{ opacity: calc\(var\(--star-opacity\) \* 0\.5\)/);
     assert.match(css, /45% \{ opacity: var\(--star-opacity\)/);
 });
-test('halo falloff is 25% narrower without shrinking white cores', () => {
+test('halo falloff is 25% narrower without shrinking star cores', () => {
     const gradients = load().field.children[0].children[0].children;
     for (const gradient of gradients) {
         const coreEdge = Number(gradient.children[1].attributes.offset);
@@ -119,15 +125,18 @@ test('each star is another 50% brighter than the previous 25% boost, capped at o
     }
     assert.ok(stars.some(star => star.attributes.opacity === '1'));
 });
-test('50 red stars are appended without changing the original 900', () => {
+test('50 extra red stars remain and original geometry, brightness and timing stay unchanged', () => {
     const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
-    const original = stars.slice(0, 900).map(star => ({ attributes: star.attributes, style: star.style }));
-    // Snapshot of all original star attributes and timing at fb53cd5.
-    assert.equal(createHash('sha256').update(JSON.stringify(original)).digest('hex'), '99a1811f726432ecc02e0652618a61d6a4bcacf468443c18169561bc045863ea');
+    const original = stars.slice(0, 900).map(star => {
+        const { fill, ...attributes } = star.attributes;
+        return { attributes, style: star.style };
+    });
+    // Snapshot of geometry, brightness and timing at 1e1f2f1, excluding the updated colors.
+    assert.equal(createHash('sha256').update(JSON.stringify(original)).digest('hex'), '1bbf8ea30c9550f7f633f947dfb69f43fa17606bdd04e41721b8eaac9fbeb04e');
     assert.equal(stars.slice(900).length, 50);
     assert.ok(stars.slice(900).every(star => star.attributes.fill === 'url(#star-red)'));
 });
-test('every section starts with the same 950 stars', () => {
+test('home and portfolio share the same 950 colored stars', () => {
     const home = load('#home').field.children[0].children.filter(element => element.classList.contains('star'));
     const portfolio = load('#portfolio').field.children[0].children.filter(element => element.classList.contains('star'));
     assert.equal(home.length, 950);
@@ -153,6 +162,8 @@ test('black base, reduced motion and decorative-only field remain in source', ()
     assert.match(css, /--card-bg: transparent;/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
     assert.match(html, /id="starfield"[^>]*aria-hidden="true"/);
+    assert.equal((html.match(/id="starfield"/g) ?? []).length, 1);
+    assert.equal((html.match(/src="script.js"/g) ?? []).length, 1);
     assert.match(html, /id="portfolio"/);
     assert.match(html, /href="pdf\/Dylan_Resume.pdf"/);
 });

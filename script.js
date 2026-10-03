@@ -12,12 +12,12 @@ function random() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
 }
-const starTints = { white: '#ffffff', blue: '#bcd6ff', red: '#ffc2bb', yellow: '#ffe79a' };
+const starTints = { white: '#ffffff', blue: '#8fbdff', red: '#ff969e', yellow: '#ffe080' };
 const definitions = document.createElementNS(svgNamespace, 'defs');
 for (const [name, tint] of Object.entries(starTints)) {
     const gradient = document.createElementNS(svgNamespace, 'radialGradient');
     gradient.setAttribute('id', `star-${name}`);
-    for (const [offset, color, opacity] of [[0, '#fff', 1], [0.2, '#fff', 0.95], [0.3875, tint, 0.45], [0.8, tint, 0]]) {
+    for (const [offset, color, opacity] of [[0, tint, 1], [0.2, tint, 0.95], [0.3875, tint, 0.45], [0.8, tint, 0]]) {
         const stop = document.createElementNS(svgNamespace, 'stop');
         stop.setAttribute('offset', offset);
         stop.setAttribute('stop-color', color);
@@ -28,7 +28,7 @@ for (const [name, tint] of Object.entries(starTints)) {
 }
 sky.appendChild(definitions);
 // Index-based tints leave the seeded star positions unchanged.
-const starColors = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'blue', 'red', 'yellow'];
+const starColors = ['white', 'blue', 'red', 'yellow', 'white', 'blue', 'red', 'yellow', 'white', 'white'];
 for (let index = 0; index < 950; index += 1) {
     const x = random() * 1440;
     const y = random() * 1000;
