@@ -86,3 +86,15 @@ test('black base, reduced motion and decorative-only field remain in source', ()
     assert.match(html, /id="portfolio"/);
     assert.match(html, /href="pdf\/Dylan_Resume.pdf"/);
 });
+
+// Baseline CSS from main at 7e3a640, with only the page backdrop changed to #000.
+// This guards every existing panel color, shape, border, shadow, and hover rule.
+test('original card and navigation appearance is unchanged', () => {
+    const { createHash } = require('node:crypto');
+    const css = fs.readFileSync('styles.css', 'utf8');
+    for (const name of ['bg-secondary', 'nav-bg', 'sidebar-bg', 'card-bg']) {
+        assert.match(css, new RegExp(`--${name}: #11111b;`));
+    }
+    const originalRules = css.split('/* One stable sky sits behind')[0].trim();
+    assert.equal(createHash('sha256').update(originalRules).digest('hex'), '82295cc42201d1a4c45ee5fc090330732f04a3193025845579ffff1530dbf929');
+});
