@@ -12,13 +12,6 @@ This website is my digital portfolio. The site features a minimalistic design ut
 - Smooth animations and transitions
 - Professional typography and spacing
 
-
-### Content Sections
-- **Bio**: Academic background and research interests
-- **Projects**: Showcase of machine learning and computer vision projects
-- **Portfolio**: Visual project gallery (currently commented out)
-- **Skills**: To be added
-
 ### Technical Implementation
 - Vanilla HTML, CSS, and JavaScript
 
