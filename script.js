@@ -17,7 +17,7 @@ const definitions = document.createElementNS(svgNamespace, 'defs');
 for (const [name, tint] of Object.entries(starTints)) {
     const gradient = document.createElementNS(svgNamespace, 'radialGradient');
     gradient.setAttribute('id', `star-${name}`);
-    for (const [offset, color, opacity] of [[0, '#fff', 1], [0.2, '#fff', 0.95], [0.45, tint, 0.45], [1, tint, 0]]) {
+    for (const [offset, color, opacity] of [[0, '#fff', 1], [0.2, '#fff', 0.95], [0.3875, tint, 0.45], [0.8, tint, 0]]) {
         const stop = document.createElementNS(svgNamespace, 'stop');
         stop.setAttribute('offset', offset);
         stop.setAttribute('stop-color', color);
@@ -35,7 +35,7 @@ for (let index = 0; index < 900; index += 1) {
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
     const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
     const baseOpacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
-    const opacity = Math.min(1, baseOpacity * 1.25);
+    const opacity = Math.min(1, baseOpacity * 1.875);
     const duration = 2 + ((index * 73) % 201) / 100;
     const star = document.createElementNS(svgNamespace, 'circle');
     star.setAttribute('cx', x);

@@ -81,13 +81,24 @@ test('stars have white cores, pale halos and varied brightness', () => {
     }
     const brightness = sky.children.filter(element => element.classList.contains('star')).map(star => Number(star.attributes.opacity));
     assert.ok(brightness.every(opacity => opacity > 0 && opacity <= 1));
-    assert.ok(brightness.filter(opacity => opacity < 0.75).length > 450);
+    assert.ok(brightness.some(opacity => opacity < 0.75));
     assert.ok(brightness.some(opacity => opacity > 0.9));
     const css = fs.readFileSync('styles.css', 'utf8');
     assert.match(css, /0%, 100% \{ opacity: calc\(var\(--star-opacity\) \* 0\.5\)/);
     assert.match(css, /45% \{ opacity: var\(--star-opacity\)/);
 });
-test('each star is 25% brighter with opacity capped at one', () => {
+test('halo falloff is 25% narrower without shrinking white cores', () => {
+    const gradients = load().field.children[0].children[0].children;
+    for (const gradient of gradients) {
+        const coreEdge = Number(gradient.children[1].attributes.offset);
+        const midHalo = Number(gradient.children[2].attributes.offset);
+        const haloEdge = Number(gradient.children[3].attributes.offset);
+        assert.equal(coreEdge, 0.2);
+        assert.ok(Math.abs((midHalo - coreEdge) / (0.45 - coreEdge) - 0.75) < 1e-12);
+        assert.ok(Math.abs((haloEdge - coreEdge) / (1 - coreEdge) - 0.75) < 1e-12);
+    }
+});
+test('each star is another 50% brighter than the previous 25% boost, capped at one', () => {
     let seed = 8128;
     const random = () => {
         seed = (seed * 1664525 + 1013904223) >>> 0;
@@ -100,9 +111,10 @@ test('each star is 25% brighter with opacity capped at one', () => {
         random(); // Radius draw in the existing seeded sky.
         const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
         const previousOpacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
-        const expectedOpacity = Math.min(1, previousOpacity * 1.25);
-        assert.equal(Number(star.attributes.opacity), expectedOpacity);
-        assert.equal(star.style['--star-opacity'], expectedOpacity);
+        const previousBoostedOpacity = Math.min(1, previousOpacity * 1.25);
+        const expectedOpacity = Math.min(1, previousBoostedOpacity * 1.5);
+        assert.ok(Math.abs(Number(star.attributes.opacity) - expectedOpacity) < 1e-12);
+        assert.ok(Math.abs(star.style['--star-opacity'] - expectedOpacity) < 1e-12);
     }
     assert.ok(stars.some(star => star.attributes.opacity === '1'));
 });
