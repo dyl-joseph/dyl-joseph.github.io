@@ -6,13 +6,11 @@ Full-page desktop/mobile previews are still required. No screenshot is represent
 
 The implementation carries over the approved sky from [Grades-UNT #40](https://github.com/dyl-joseph/grades-unt/pull/40), updated to **900 stars throughout** as requested. Each star has a staggered 3, 3.5, 4, 4.5, or 5 second twinkle cycle. Positions remain stable across hash navigation. Reduced-motion keeps the stars visible and static.
 
-Original cards, sidebar, navigation, borders, shadows, radii, and hover styles remain identical to main. Their original `#11111b` surfaces are opaque. Only the page backdrop changes to `#000`; stars stay behind those panels. A baseline stylesheet fingerprint test guards every original rule, allowing only that backdrop color change.
-
 The single shared SVG keeps the original visual shape without adding a framework or canvas repaint loop. Page content and all existing links are preserved. The script's references to absent theme/mobile controls have been replaced with the star initializer and an accessible mobile menu. The Portfolio anchor now points to Selected Projects.
 
 ## Verification
 
-- `node --test tests/site.test.cjs`: five passing tests for deterministic star data, duration/delay ranges, consistent section density, menu interactions, and source-level accessibility/reduced-motion rules.
+- `node --test tests/site.test.cjs`: four passing tests for deterministic star data, duration/delay ranges, consistent section density, menu interactions, and source-level accessibility/reduced-motion rules.
 - `node --check script.js` and `git diff --check`: pass.
 - Parsed before/after HTML confirms unchanged text and link destinations.
 - Browser layout, animation playback, responsive rendering, and screenshots: pending, not claimed as verified.

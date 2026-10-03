@@ -6,13 +6,12 @@
     --text-color: #fff;
     --text-light: #fff;
     --bg-color: #000;
-    ;
-    --bg-secondary: #11111b;
+    --bg-secondary: rgba(0, 0, 0, 0.7);
     --border-color: #e9ecef;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --nav-bg: #11111b;
-    --sidebar-bg: #11111b;
-    --card-bg: #11111b;
+    --nav-bg: rgba(0, 0, 0, 0.9);
+    --sidebar-bg: transparent;
+    --card-bg: transparent;
     --link-color: #89b4fa;
     --link-hover: #89b4fa;
 }
@@ -519,7 +518,7 @@ ul
 
  .project-item {
     padding: 1.5rem;
-    background: var(--bg-secondary);
+    background: #000;
     border-radius: 25px;
 } 
 
