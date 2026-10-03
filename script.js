@@ -18,7 +18,7 @@ for (let index = 0; index < 900; index += 1) {
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
     const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
     const opacity = Math.min(1, 1.5 * (0.5 + random() * 0.45) * (behindTitle ? 0.65 : 1));
-    const duration = 3 + (index % 5) * 0.5;
+    const duration = 2 + (index % 5) * 0.5;
     const star = document.createElementNS(svgNamespace, 'circle');
     star.setAttribute('cx', x);
     star.setAttribute('cy', y);
