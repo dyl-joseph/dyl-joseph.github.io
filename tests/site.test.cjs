@@ -61,14 +61,14 @@ test('sky keeps stable positions and independently staggered 2–4 second flicke
         assert.ok(Math.abs(parseFloat(star.style.animationDelay)) < parseFloat(star.style.animationDuration));
     }
 });
-test('most stars have visible blue, red or yellow color', () => {
+test('exactly half the stars are white and half retain the approved colors', () => {
     const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
     const counts = {};
     for (const star of stars) {
         const color = star.attributes.fill;
         counts[color] = (counts[color] ?? 0) + 1;
     }
-    assert.deepEqual(counts, { 'url(#star-white)': 360, 'url(#star-blue)': 180, 'url(#star-red)': 230, 'url(#star-yellow)': 180 });
+    assert.deepEqual(counts, { 'url(#star-white)': 475, 'url(#star-blue)': 145, 'url(#star-red)': 185, 'url(#star-yellow)': 145 });
 });
 test('colored stars retain visible color at their brightest cores and halos', () => {
     const sky = load().field.children[0];
@@ -125,16 +125,14 @@ test('each star is another 50% brighter than the previous 25% boost, capped at o
     }
     assert.ok(stars.some(star => star.attributes.opacity === '1'));
 });
-test('50 extra red stars remain and original geometry, brightness and timing stay unchanged', () => {
+test('all 950 stars retain their geometry, brightness and timing', () => {
     const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
-    const original = stars.slice(0, 900).map(star => {
+    const original = stars.map(star => {
         const { fill, ...attributes } = star.attributes;
         return { attributes, style: star.style };
     });
-    // Snapshot of geometry, brightness and timing at 1e1f2f1, excluding the updated colors.
-    assert.equal(createHash('sha256').update(JSON.stringify(original)).digest('hex'), '1bbf8ea30c9550f7f633f947dfb69f43fa17606bdd04e41721b8eaac9fbeb04e');
-    assert.equal(stars.slice(900).length, 50);
-    assert.ok(stars.slice(900).every(star => star.attributes.fill === 'url(#star-red)'));
+    // Snapshot of all 950 stars at 632487ba, excluding the updated color assignments.
+    assert.equal(createHash('sha256').update(JSON.stringify(original)).digest('hex'), '0fbde51927f3ceabed686feca07f1c85a5e3e39cb40ce613a687e6f0e3c9fafc');
 });
 test('home and portfolio share the same 950 colored stars', () => {
     const home = load('#home').field.children[0].children.filter(element => element.classList.contains('star'));
