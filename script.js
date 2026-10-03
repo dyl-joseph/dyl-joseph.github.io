@@ -12,7 +12,7 @@ function random() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
 }
-const starTints = { white: '#ffffff', blue: '#dceaff', red: '#ffe0dd', yellow: '#fff3c4' };
+const starTints = { white: '#ffffff', blue: '#bcd6ff', red: '#ffc2bb', yellow: '#ffe79a' };
 const definitions = document.createElementNS(svgNamespace, 'defs');
 for (const [name, tint] of Object.entries(starTints)) {
     const gradient = document.createElementNS(svgNamespace, 'radialGradient');
@@ -34,7 +34,8 @@ for (let index = 0; index < 900; index += 1) {
     const y = random() * 1000;
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
     const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
-    const opacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
+    const baseOpacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
+    const opacity = Math.min(1, baseOpacity * 1.25);
     const duration = 2 + ((index * 73) % 201) / 100;
     const star = document.createElementNS(svgNamespace, 'circle');
     star.setAttribute('cx', x);

@@ -73,7 +73,7 @@ test('stars have white cores, pale halos and varied brightness', () => {
     const sky = load().field.children[0];
     const gradients = sky.children[0].children;
     assert.deepEqual(gradients.map(gradient => gradient.attributes.id), ['star-white', 'star-blue', 'star-red', 'star-yellow']);
-    assert.deepEqual(gradients.map(gradient => gradient.children[2].attributes['stop-color']), ['#ffffff', '#dceaff', '#ffe0dd', '#fff3c4']);
+    assert.deepEqual(gradients.map(gradient => gradient.children[2].attributes['stop-color']), ['#ffffff', '#bcd6ff', '#ffc2bb', '#ffe79a']);
     for (const gradient of gradients) {
         assert.equal(gradient.children[0].attributes['stop-color'], '#fff');
         assert.equal(gradient.children[0].attributes['stop-opacity'], '1');
@@ -81,11 +81,30 @@ test('stars have white cores, pale halos and varied brightness', () => {
     }
     const brightness = sky.children.filter(element => element.classList.contains('star')).map(star => Number(star.attributes.opacity));
     assert.ok(brightness.every(opacity => opacity > 0 && opacity <= 1));
-    assert.ok(brightness.filter(opacity => opacity < 0.6).length > 450);
+    assert.ok(brightness.filter(opacity => opacity < 0.75).length > 450);
     assert.ok(brightness.some(opacity => opacity > 0.9));
     const css = fs.readFileSync('styles.css', 'utf8');
     assert.match(css, /0%, 100% \{ opacity: calc\(var\(--star-opacity\) \* 0\.5\)/);
     assert.match(css, /45% \{ opacity: var\(--star-opacity\)/);
+});
+test('each star is 25% brighter with opacity capped at one', () => {
+    let seed = 8128;
+    const random = () => {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 4294967296;
+    };
+    const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
+    for (const star of stars) {
+        const x = random() * 1440;
+        const y = random() * 1000;
+        random(); // Radius draw in the existing seeded sky.
+        const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
+        const previousOpacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
+        const expectedOpacity = Math.min(1, previousOpacity * 1.25);
+        assert.equal(Number(star.attributes.opacity), expectedOpacity);
+        assert.equal(star.style['--star-opacity'], expectedOpacity);
+    }
+    assert.ok(stars.some(star => star.attributes.opacity === '1'));
 });
 test('every section starts with the same 900 stars', () => {
     const home = load('#home').field.children[0].children.filter(element => element.classList.contains('star'));
