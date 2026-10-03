@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div id="starfield" class="starfield-layer" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-line"></div> 
@@ -16,7 +17,10 @@
             <div class="nav-logo">
                 <a href="#home">Dylan's Page</a>
             </div>
-            <ul class="nav-menu">
+            <button class="hamburger" type="button" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
                     <a href="#home" class="nav-link">Home</a>
                 </li>
@@ -95,7 +99,7 @@
                         <hr />    
                     </div>
                     
-                    <h1>Selected Projects</h1>
+                    <h1 id="portfolio">Selected Projects</h1>
                     <p>Click a project to get the code!</p>
                     <ul class="compact-list">
                         <li class="project-item-border" onclick="window.location.href='https://github.com/dyl-joseph/Early-Fusion-for-Sound-Source-Separation-and-Localization'">
@@ -207,8 +211,9 @@
                     </div>
                 </div>                
             </div>        -->
+                </section>
+            </div>
         </div>
-        
     </main>
 
 

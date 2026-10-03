@@ -5,14 +5,13 @@
     --accent-color: #e74c3c;
     --text-color: #fff;
     --text-light: #fff;
-    --bg-color: #22232a;
-    ;
-    --bg-secondary: #11111b;
+    --bg-color: #000;
+    --bg-secondary: rgba(0, 0, 0, 0.7);
     --border-color: #e9ecef;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --nav-bg: #11111b;
-    --sidebar-bg: #11111b;
-    --card-bg: #11111b;
+    --nav-bg: rgba(0, 0, 0, 0.9);
+    --sidebar-bg: transparent;
+    --card-bg: transparent;
     --link-color: #89b4fa;
     --link-hover: #89b4fa;
 }
@@ -519,7 +518,7 @@ ul
 
  .project-item {
     padding: 1.5rem;
-    background: var(--bg-secondary);
+    background: #000;
     border-radius: 25px;
 } 
 
@@ -761,4 +760,37 @@ button:focus {
 }
 .compact-list li {
     margin-bottom: 5px; 
+}
+
+/* One stable sky sits behind the entire document, including hash navigation. */
+body { isolation: isolate; }
+.starfield-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+.starfield { width: 100%; height: 100%; animation: star-drift 120s ease-in-out infinite alternate; }
+.star { animation: star-twinkle 3s ease-in-out infinite; }
+@keyframes star-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(3px, -2px, 0); }
+}
+@keyframes star-twinkle {
+    0%, 100% { opacity: calc(var(--star-opacity) * 0.1); }
+    50% { opacity: var(--star-opacity); }
+}
+.hamburger { background: transparent; border: 0; padding: 8px; }
+.content-area { min-width: 0; }
+@media (max-width: 768px) {
+    .nav-menu { visibility: hidden; }
+    .nav-menu.active { visibility: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+}
+@media print {
+    .starfield-layer { display: none; }
 }
