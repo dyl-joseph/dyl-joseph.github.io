@@ -6,26 +6,41 @@ sky.setAttribute('preserveAspectRatio', 'xMidYMid slice');
 sky.setAttribute('focusable', 'false');
 sky.classList.add('starfield');
 
-// Match the approved Grades sky without moving stars when navigating sections.
+// Keep the same sky when navigating sections.
 let seed = 8128;
 function random() {
     seed = (seed * 1664525 + 1013904223) >>> 0;
     return seed / 4294967296;
 }
-// Keep most stars white; indexing preserves the seeded positions and twinkle timing.
-const starColors = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#89b4fa', '#ff8a80', '#fab387'];
+const starTints = { white: '#ffffff', blue: '#dceaff', red: '#ffe0dd', yellow: '#fff3c4' };
+const definitions = document.createElementNS(svgNamespace, 'defs');
+for (const [name, tint] of Object.entries(starTints)) {
+    const gradient = document.createElementNS(svgNamespace, 'radialGradient');
+    gradient.setAttribute('id', `star-${name}`);
+    for (const [offset, color, opacity] of [[0, '#fff', 1], [0.2, '#fff', 0.95], [0.45, tint, 0.45], [1, tint, 0]]) {
+        const stop = document.createElementNS(svgNamespace, 'stop');
+        stop.setAttribute('offset', offset);
+        stop.setAttribute('stop-color', color);
+        stop.setAttribute('stop-opacity', opacity);
+        gradient.appendChild(stop);
+    }
+    definitions.appendChild(gradient);
+}
+sky.appendChild(definitions);
+// Index-based tints leave the seeded star positions unchanged.
+const starColors = ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'blue', 'red', 'yellow'];
 for (let index = 0; index < 900; index += 1) {
     const x = random() * 1440;
     const y = random() * 1000;
     const radius = [0.6, 0.8, 1, 0.7, 1.3, 0.8, 1.8][Math.floor(random() * 7)];
     const behindTitle = x > 300 && x < 1140 && y > 300 && y < 730;
-    const opacity = Math.min(1, 1.5 * (0.5 + random() * 0.45) * (behindTitle ? 0.65 : 1));
-    const duration = 2 + (index % 5) * 0.5;
+    const opacity = (0.35 + random() ** 2 * 0.65) * (behindTitle ? 0.65 : 1);
+    const duration = 2 + ((index * 73) % 201) / 100;
     const star = document.createElementNS(svgNamespace, 'circle');
     star.setAttribute('cx', x);
     star.setAttribute('cy', y);
-    star.setAttribute('r', radius);
-    star.setAttribute('fill', starColors[index % starColors.length]);
+    star.setAttribute('r', radius * 2.5);
+    star.setAttribute('fill', `url(#star-${starColors[index % starColors.length]})`);
     star.setAttribute('opacity', opacity);
     star.classList.add('star');
     star.style.setProperty('--star-opacity', opacity);

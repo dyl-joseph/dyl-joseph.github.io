@@ -45,31 +45,51 @@ function load(hash = '') {
     vm.runInNewContext(fs.readFileSync('script.js', 'utf8'), context);
     return { field, button, menu, links, context, documentEvents, windowEvents };
 }
-test('sky matches the approved stable positions and five staggered durations', () => {
+test('sky keeps stable positions and independently staggered 2–4 second flickers', () => {
     const first = load();
-    const stars = first.field.children[0].children;
+    const stars = first.field.children[0].children.filter(element => element.classList.contains('star'));
     assert.equal(stars.length, 900);
-    assert.deepEqual(stars.map(star => star.attributes), load().field.children[0].children.map(star => star.attributes));
-    assert.deepEqual([...new Set(stars.map(star => star.style.animationDuration))], ['2s', '2.5s', '3s', '3.5s', '4s']);
+    assert.deepEqual(stars.map(star => star.attributes), load().field.children[0].children.filter(element => element.classList.contains('star')).map(star => star.attributes));
+    assert.ok(new Set(stars.map(star => star.style.animationDuration)).size > 100);
+    assert.ok(new Set(stars.map(star => star.style.animationDelay)).size > 100);
     for (const star of stars) {
+        assert.ok(parseFloat(star.style.animationDuration) >= 2 && parseFloat(star.style.animationDuration) <= 4);
         assert.ok(Number(star.attributes.cx) >= 0 && Number(star.attributes.cx) < 1440);
         assert.ok(Number(star.attributes.cy) >= 0 && Number(star.attributes.cy) < 1000);
         assert.ok(parseFloat(star.style.animationDelay) <= 0);
         assert.ok(Math.abs(parseFloat(star.style.animationDelay)) < parseFloat(star.style.animationDuration));
     }
 });
-test('sky mixes blue, red and orange accents with mostly white stars', () => {
-    const stars = load().field.children[0].children;
+test('sky mixes pale blue, red and yellow accents with mostly white stars', () => {
+    const stars = load().field.children[0].children.filter(element => element.classList.contains('star'));
     const counts = {};
     for (const star of stars) {
         const color = star.attributes.fill;
         counts[color] = (counts[color] ?? 0) + 1;
     }
-    assert.deepEqual(counts, { '#fff': 630, '#89b4fa': 90, '#ff8a80': 90, '#fab387': 90 });
+    assert.deepEqual(counts, { 'url(#star-white)': 630, 'url(#star-blue)': 90, 'url(#star-red)': 90, 'url(#star-yellow)': 90 });
+});
+test('stars have white cores, pale halos and varied brightness', () => {
+    const sky = load().field.children[0];
+    const gradients = sky.children[0].children;
+    assert.deepEqual(gradients.map(gradient => gradient.attributes.id), ['star-white', 'star-blue', 'star-red', 'star-yellow']);
+    assert.deepEqual(gradients.map(gradient => gradient.children[2].attributes['stop-color']), ['#ffffff', '#dceaff', '#ffe0dd', '#fff3c4']);
+    for (const gradient of gradients) {
+        assert.equal(gradient.children[0].attributes['stop-color'], '#fff');
+        assert.equal(gradient.children[0].attributes['stop-opacity'], '1');
+        assert.equal(gradient.children.at(-1).attributes['stop-opacity'], '0');
+    }
+    const brightness = sky.children.filter(element => element.classList.contains('star')).map(star => Number(star.attributes.opacity));
+    assert.ok(brightness.every(opacity => opacity > 0 && opacity <= 1));
+    assert.ok(brightness.filter(opacity => opacity < 0.6).length > 450);
+    assert.ok(brightness.some(opacity => opacity > 0.9));
+    const css = fs.readFileSync('styles.css', 'utf8');
+    assert.match(css, /0%, 100% \{ opacity: calc\(var\(--star-opacity\) \* 0\.5\)/);
+    assert.match(css, /45% \{ opacity: var\(--star-opacity\)/);
 });
 test('every section starts with the same 900 stars', () => {
-    const home = load('#home').field.children[0].children;
-    const portfolio = load('#portfolio').field.children[0].children;
+    const home = load('#home').field.children[0].children.filter(element => element.classList.contains('star'));
+    const portfolio = load('#portfolio').field.children[0].children.filter(element => element.classList.contains('star'));
     assert.equal(home.length, 900);
     assert.equal(portfolio.length, 900);
     assert.deepEqual(home.map(star => star.attributes), portfolio.map(star => star.attributes));

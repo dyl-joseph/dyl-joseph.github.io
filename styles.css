@@ -778,8 +778,10 @@ body { isolation: isolate; }
     to { transform: translate3d(3px, -2px, 0); }
 }
 @keyframes star-twinkle {
-    0%, 100% { opacity: calc(var(--star-opacity) * 0.1); }
-    50% { opacity: var(--star-opacity); }
+    0%, 100% { opacity: calc(var(--star-opacity) * 0.5); }
+    20% { opacity: calc(var(--star-opacity) * 0.6); }
+    45% { opacity: var(--star-opacity); }
+    75% { opacity: calc(var(--star-opacity) * 0.7); }
 }
 .hamburger { background: transparent; border: 0; padding: 8px; }
 .content-area { min-width: 0; }
