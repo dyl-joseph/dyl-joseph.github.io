@@ -2,7 +2,7 @@
 
 ## Overview
 
-This website is my digital portfolio. The site features a minimalistic design utilizing darker colors with lighter colors for animations/highlights.
+This website is my digital portfolio. The site **used** to be minimalistic, but I really started to love stars being included into company's websites. So, it's on mine now!!!!
 
 ## Features
 
